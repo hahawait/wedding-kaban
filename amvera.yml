@@ -8,5 +8,5 @@ build:
   requirementsPath: backend/requirements.txt
 
 run:
-  command: cd backend && uvicorn main:app --host 0.0.0.0 --port 5000
+  command: uvicorn main:app --host 0.0.0.0 --port 5000 --app-dir backend
   containerPort: 5000
