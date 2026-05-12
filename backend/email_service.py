@@ -4,6 +4,24 @@ import httpx
 RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
 FROM_EMAIL = os.getenv("FROM_EMAIL", "onboarding@resend.dev")
 COUPLE_EMAIL = os.getenv("COUPLE_EMAIL", "")
+REPLY_TO = os.getenv("REPLY_TO", "").strip()
+
+
+def _email_to_ascii(addr: str) -> str:
+    """Resend принимает from/to в ASCII; кириллический домен (.рф) → punycode (xn--...)."""
+    addr = addr.strip()
+    if "@" not in addr:
+        return addr
+    local, domain = addr.rsplit("@", 1)
+    if not domain or all(ord(c) < 128 for c in domain):
+        return addr
+    try:
+        ascii_domain = ".".join(
+            label.encode("idna").decode("ascii") for label in domain.split(".") if label
+        )
+    except (UnicodeError, UnicodeDecodeError):
+        return addr
+    return f"{local}@{ascii_domain}"
 
 
 def _build_html(guest_name: str) -> str:
@@ -109,9 +127,20 @@ def send_invitation(guest_name: str, guest_email: str) -> None:
         print(f"[EMAIL SKIP] RESEND_API_KEY не задан. Письмо для {guest_email} не отправлено.")
         return
 
-    recipients = [guest_email]
-    if COUPLE_EMAIL:
-        recipients.append(COUPLE_EMAIL)
+    from_addr = _email_to_ascii(FROM_EMAIL)
+    to_guest = _email_to_ascii(guest_email.strip())
+    recipients = [to_guest]
+    if COUPLE_EMAIL and COUPLE_EMAIL.strip():
+        recipients.append(_email_to_ascii(COUPLE_EMAIL.strip()))
+
+    payload = {
+        "from": from_addr,
+        "to": recipients,
+        "subject": "✦ Кирилл и Лена приглашают вас на свадьбу! ❤",
+        "html": _build_html(guest_name),
+    }
+    if REPLY_TO:
+        payload["reply_to"] = _email_to_ascii(REPLY_TO)
 
     response = httpx.post(
         "https://api.resend.com/emails",
@@ -119,13 +148,18 @@ def send_invitation(guest_name: str, guest_email: str) -> None:
             "Authorization": f"Bearer {RESEND_API_KEY}",
             "Content-Type": "application/json",
         },
-        json={
-            "from": FROM_EMAIL,
-            "to": recipients,
-            "subject": "✦ Кирилл и Лена приглашают вас на свадьбу! ❤",
-            "html": _build_html(guest_name),
-        },
+        json=payload,
         timeout=10,
     )
+    if not response.is_success:
+        print(f"[EMAIL ERROR] {response.status_code} {response.text}")
     response.raise_for_status()
-    print(f"[EMAIL OK] Отправлено на {guest_email}, статус {response.status_code}")
+    try:
+        rid = response.json().get("id")
+    except Exception:
+        rid = None
+    print(
+        f"[EMAIL OK] to={guest_email} http={response.status_code}"
+        + (f" resend_id={rid}" if rid else "")
+        + " — если в Gmail пусто: Resend → Emails → это письмо (Delivered/Bounced) и поиск in:anywhere по теме"
+    )
