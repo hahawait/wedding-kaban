@@ -7,22 +7,20 @@
 
 ## Домен и email
 
-- [ ] Купить домен (рекомендация: `.ru` на reg.ru, ~150 руб/год)
-- [ ] В [Resend](https://resend.com) → Domains → Add Domain → добавить купленный домен
-- [ ] Прописать 3 DNS-записи (TXT/CNAME) от Resend в настройках домена
-- [ ] Нажать Verify в Resend
-- [ ] Обновить `backend/.env`:
-      ```
-      FROM_EMAIL=welcome@ваш-домен.ru
-      ```
+- [x] Купить домен (`кирилл-лена-свадьба.рф` на reg.ru)
+- [x] В Resend → Domains → Add Domain → добавить домен (punycode)
+- [x] Прописать DNS-записи (DKIM, MX, SPF, DMARC) в reg.ru
+- [x] Verify в Resend — домен верифицирован
+- [x] Обновить `backend/.env` → `FROM_EMAIL=wedding@кирилл-лена-свадьба.рф`
+- [x] Письма отправляются (попадание в спам/промо — нормально для нового домена, со временем улучшится)
 
 ## Деплой
 
 - [ ] Выбрать платформу: Railway / Render / Fly.io
 - [ ] Создать PostgreSQL-базу на платформе
 - [ ] Задеплоить бэкенд (FastAPI)
-- [ ] Прописать переменные окружения (DATABASE_URL, RESEND_API_KEY, FROM_EMAIL)
-- [ ] Подключить купленный домен к деплою
+- [ ] Прописать переменные окружения (DATABASE_URL, RESEND_API_KEY, FROM_EMAIL, REPLY_TO)
+- [ ] Подключить домен `кирилл-лена-свадьба.рф` к деплою
 
 ## Отложено
 
