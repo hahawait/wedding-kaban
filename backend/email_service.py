@@ -40,7 +40,7 @@ def _build_html(guest_name: str) -> str:
         ✦ СВАДЬБА КИРИЛЛА И ЛЕНЫ ✦
       </span><br>
       <span style="font-family:Times New Roman,serif;font-size:15px;color:#FFFFFF;">
-        Сентябрь 2026 года
+        5 сентября 2026 года
       </span>
     </td>
   </tr>
@@ -65,8 +65,7 @@ def _build_html(guest_name: str) -> str:
         Ваша регистрация прошла успешно, и мы с нетерпением ждём вас на нашей свадьбе!
       </p>
       <p style="font-family:Times New Roman,serif;font-size:14px;color:#000000;line-height:1.7;margin:0 0 12px;">
-        Точную дату, место и время мы сообщим вам дополнительно — следите за новостями
-        на нашем сайте!! Пожалуйста не забудьте подтвердить своё присутствие до
+        Ниже — все детали торжества. Пожалуйста, подтвердите своё присутствие до
         <strong>1 августа 2026 года</strong>.
       </p>
       <p style="font-family:Times New Roman,serif;font-size:13px;color:#FF1493;font-style:italic;margin:0 0 16px;">
@@ -87,16 +86,53 @@ def _build_html(guest_name: str) -> str:
             📅 Дата:
           </td>
           <td style="font-family:Times New Roman,serif;font-size:14px;">
-            <strong>Сентябрь 2026 года</strong><br>
-            <span style="color:#888888;font-size:12px;">(точная дата уточняется)</span>
+            <strong>5 сентября 2026 года</strong>
           </td>
         </tr>
         <tr>
           <td style="font-family:Arial,sans-serif;font-size:13px;font-weight:bold;">
-            📍 Место:
+            🎉 Выкуп:
           </td>
           <td style="font-family:Times New Roman,serif;font-size:14px;">
-            Уточняется — сообщим дополнительно
+            <strong>12:00</strong><br>
+            г. Волжский, ул. Мира, 65, 3 подъезд
+          </td>
+        </tr>
+        <tr style="background-color:#FFF0F5;">
+          <td style="font-family:Arial,sans-serif;font-size:13px;font-weight:bold;">
+            💒 Роспись:
+          </td>
+          <td style="font-family:Times New Roman,serif;font-size:14px;">
+            <strong>13:30</strong> — ЗАГС №2<br>
+            г. Волжский, Волгоградская обл., ул. Мира, 54<br>
+            <a href="https://yandex.ru/maps/?pt=44.804044,48.770343&amp;z=16&amp;l=map"
+               style="color:#CC0000;font-size:12px;">Открыть на карте</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="font-family:Arial,sans-serif;font-size:13px;font-weight:bold;">
+            🍽 Банкет:
+          </td>
+          <td style="font-family:Times New Roman,serif;font-size:14px;">
+            <strong>16:00 — 23:00</strong> — Турбаза «Солнечный остров»<br>
+            Волгоградская обл., г. Волгоград, Среднеахтубинский р-н,
+            х. Новенький, ул. Центральная, 42<br>
+            <a href="https://solar-island.ru/" style="color:#CC0000;font-size:12px;">solar-island.ru</a>
+            &nbsp;|&nbsp;
+            <a href="https://yandex.ru/maps/?pt=44.778278,48.697535&amp;z=17&amp;l=map"
+               style="color:#CC0000;font-size:12px;">Открыть на карте</a>
+          </td>
+        </tr>
+        <tr style="background-color:#FFF0F5;">
+          <td style="font-family:Arial,sans-serif;font-size:13px;font-weight:bold;">
+            🚌 Как добраться:
+          </td>
+          <td style="font-family:Times New Roman,serif;font-size:14px;">
+            От загса будет организован <strong>трансфер до места проведения банкета</strong>.
+            Точное время отправления сообщим дополнительно.<br><br>
+            На своём транспорте — Турбаза «Солнечный остров».<br>
+            <a href="https://yandex.ru/maps/?rtext=48.770343,44.804044~48.697535,44.778278&amp;rtt=auto&amp;z=11"
+               style="color:#CC0000;font-size:12px;">Маршрут от ЗАГС №2 до турбазы</a>
           </td>
         </tr>
       </table>
